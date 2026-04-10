@@ -1029,6 +1029,254 @@
 }
 
 /* =============================================
+   DEAL ANALYZER
+   ============================================= */
+.analyzer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  margin-top: var(--space-10);
+  align-items: start;
+}
+
+.analyzer__panel-title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  color: var(--color-text);
+  margin-bottom: var(--space-6);
+}
+
+/* — Inputs panel — */
+.analyzer__inputs {
+  background: var(--color-surface);
+  border: 1px solid oklch(from var(--color-text) l c h / 0.08);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+}
+
+.analyzer__field {
+  margin-bottom: var(--space-5);
+}
+
+.analyzer__label {
+  display: block;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-2);
+}
+
+.analyzer__input-wrap {
+  display: flex;
+  align-items: stretch;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.analyzer__input-wrap:focus-within {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px oklch(from var(--color-accent) l c h / 0.12);
+}
+
+.analyzer__prefix,
+.analyzer__suffix {
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  background: var(--color-surface-offset);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.analyzer__prefix { border-right: 1px solid var(--color-border); }
+.analyzer__suffix { border-left:  1px solid var(--color-border); }
+
+.analyzer__input {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  background: transparent;
+  border: none;
+  outline: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.analyzer__input::-webkit-inner-spin-button,
+.analyzer__input::-webkit-outer-spin-button { opacity: 0; }
+
+.analyzer__hint {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  margin-top: var(--space-1);
+}
+
+.analyzer__divider {
+  height: 1px;
+  background: var(--color-divider);
+  margin: var(--space-5) 0;
+}
+
+/* — Results panel — */
+.analyzer__results {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.analyzer__metric {
+  background: var(--color-surface);
+  border: 1px solid oklch(from var(--color-text) l c h / 0.08);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.analyzer__metric:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.analyzer__metric-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+
+.analyzer__metric-name {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.analyzer__metric-badge {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-2);
+  color: var(--color-text-faint);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.analyzer__metric-badge--good {
+  background: rgba(52, 168, 83, 0.12);
+  color: #2d9142;
+}
+[data-theme="dark"] .analyzer__metric-badge--good {
+  background: rgba(52, 168, 83, 0.18);
+  color: #5dc87a;
+}
+
+.analyzer__metric-badge--fair {
+  background: oklch(from var(--color-accent) l c h / 0.15);
+  color: var(--color-accent);
+}
+
+.analyzer__metric-badge--poor {
+  background: rgba(214, 71, 71, 0.1);
+  color: #c0392b;
+}
+[data-theme="dark"] .analyzer__metric-badge--poor {
+  background: rgba(214, 71, 71, 0.18);
+  color: #e57373;
+}
+
+.analyzer__metric-value {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-3);
+  font-variant-numeric: tabular-nums;
+  transition: color 0.3s ease;
+}
+
+.analyzer__metric-bar {
+  height: 4px;
+  background: var(--color-surface-offset);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-bottom: var(--space-3);
+}
+
+.analyzer__metric-bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: var(--radius-full);
+  background: var(--color-accent);
+  transition: width 0.55s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
+}
+
+.analyzer__metric-bar-fill--good { background: #34a853; }
+.analyzer__metric-bar-fill--fair { background: var(--color-accent); }
+.analyzer__metric-bar-fill--poor { background: #d64747; }
+
+.analyzer__metric-desc {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  line-height: 1.5;
+  max-width: none;
+}
+
+/* — Summary card — */
+.analyzer__summary {
+  background: var(--color-surface);
+  border: 1px solid oklch(from var(--color-text) l c h / 0.08);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-6);
+}
+
+.analyzer__summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid oklch(from var(--color-text) l c h / 0.05);
+}
+
+.analyzer__summary-row:last-child { border-bottom: none; }
+
+.analyzer__summary-label {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.analyzer__summary-val {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+  transition: color 0.3s ease;
+}
+
+.analyzer__disclaimer {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  text-align: center;
+  line-height: 1.5;
+}
+
+@media (max-width: 960px) {
+  .analyzer {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =============================================
    SCROLL ANIMATIONS
    ============================================= */
 .reveal {
