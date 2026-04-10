@@ -75,6 +75,7 @@
         <a href="#transactions">Transactions</a>
         <a href="#specialties">Specialties</a>
         <a href="#experience">Experience</a>
+        <a href="#analyzer">Analyzer</a>
         <a href="#contact">Contact</a>
         <button class="theme-toggle" data-theme-toggle aria-label="Switch color theme">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -501,8 +502,142 @@
       </div>
     </section>
 
+    <!-- DEAL ANALYZER -->
+    <section class="section section--alt" id="analyzer" aria-labelledby="analyzer-title">
+      <div class="section__inner">
+        <div class="reveal">
+          <p class="section__eyebrow">Tools</p>
+          <h2 id="analyzer-title" class="section__title">Miami Deal Analyzer</h2>
+          <p class="section__desc">Run the numbers on any commercial property. Enter your deal parameters and see key investment metrics instantly.</p>
+        </div>
+
+        <div class="analyzer reveal reveal-delay-1">
+
+          <!-- ── Inputs ── -->
+          <div class="analyzer__inputs">
+            <h3 class="analyzer__panel-title">Deal Parameters</h3>
+
+            <div class="analyzer__field">
+              <label class="analyzer__label" for="da-price">Purchase Price</label>
+              <div class="analyzer__input-wrap">
+                <span class="analyzer__prefix">$</span>
+                <input type="number" id="da-price" class="analyzer__input" placeholder="2,500,000" min="0" step="1000">
+              </div>
+            </div>
+
+            <div class="analyzer__field">
+              <label class="analyzer__label" for="da-noi">Annual NOI</label>
+              <div class="analyzer__input-wrap">
+                <span class="analyzer__prefix">$</span>
+                <input type="number" id="da-noi" class="analyzer__input" placeholder="150,000" min="0" step="100">
+              </div>
+              <p class="analyzer__hint">Net Operating Income — after expenses, before debt service</p>
+            </div>
+
+            <div class="analyzer__divider"></div>
+
+            <div class="analyzer__field">
+              <label class="analyzer__label" for="da-down">Down Payment</label>
+              <div class="analyzer__input-wrap">
+                <input type="number" id="da-down" class="analyzer__input" placeholder="25" min="0" max="100" step="1" value="25">
+                <span class="analyzer__suffix">%</span>
+              </div>
+            </div>
+
+            <div class="analyzer__field">
+              <label class="analyzer__label" for="da-rate">Interest Rate</label>
+              <div class="analyzer__input-wrap">
+                <input type="number" id="da-rate" class="analyzer__input" placeholder="7.00" min="0" max="30" step="0.125" value="7.00">
+                <span class="analyzer__suffix">%</span>
+              </div>
+            </div>
+
+            <div class="analyzer__field">
+              <label class="analyzer__label" for="da-term">Amortization</label>
+              <div class="analyzer__input-wrap">
+                <input type="number" id="da-term" class="analyzer__input" placeholder="25" min="1" max="40" step="1" value="25">
+                <span class="analyzer__suffix">yrs</span>
+              </div>
+            </div>
+
+            <div class="analyzer__field">
+              <label class="analyzer__label" for="da-closing">Closing Costs</label>
+              <div class="analyzer__input-wrap">
+                <input type="number" id="da-closing" class="analyzer__input" placeholder="2" min="0" max="20" step="0.5" value="2">
+                <span class="analyzer__suffix">%</span>
+              </div>
+              <p class="analyzer__hint">Typical commercial: 1.5–3% of purchase price</p>
+            </div>
+          </div>
+
+          <!-- ── Results ── -->
+          <div class="analyzer__results">
+            <h3 class="analyzer__panel-title">Investment Metrics</h3>
+
+            <div class="analyzer__metric">
+              <div class="analyzer__metric-header">
+                <span class="analyzer__metric-name">Cap Rate</span>
+                <span class="analyzer__metric-badge" id="badge-caprate">—</span>
+              </div>
+              <div class="analyzer__metric-value" id="val-caprate">—</div>
+              <div class="analyzer__metric-bar">
+                <div class="analyzer__metric-bar-fill" id="bar-caprate"></div>
+              </div>
+              <p class="analyzer__metric-desc">NOI ÷ Purchase Price &mdash; Miami commercial assets typically trade at 4–6%.</p>
+            </div>
+
+            <div class="analyzer__metric">
+              <div class="analyzer__metric-header">
+                <span class="analyzer__metric-name">Cash-on-Cash Return</span>
+                <span class="analyzer__metric-badge" id="badge-coc">—</span>
+              </div>
+              <div class="analyzer__metric-value" id="val-coc">—</div>
+              <div class="analyzer__metric-bar">
+                <div class="analyzer__metric-bar-fill" id="bar-coc"></div>
+              </div>
+              <p class="analyzer__metric-desc">Annual cash flow ÷ total cash invested (down payment + closing costs).</p>
+            </div>
+
+            <div class="analyzer__metric">
+              <div class="analyzer__metric-header">
+                <span class="analyzer__metric-name">DSCR</span>
+                <span class="analyzer__metric-badge" id="badge-dscr">—</span>
+              </div>
+              <div class="analyzer__metric-value" id="val-dscr">—</div>
+              <div class="analyzer__metric-bar">
+                <div class="analyzer__metric-bar-fill" id="bar-dscr"></div>
+              </div>
+              <p class="analyzer__metric-desc">NOI ÷ Annual Debt Service &mdash; most lenders require &ge;1.25x to approve a loan.</p>
+            </div>
+
+            <div class="analyzer__summary">
+              <div class="analyzer__summary-row">
+                <span class="analyzer__summary-label">Loan Amount</span>
+                <span class="analyzer__summary-val" id="sum-loan">—</span>
+              </div>
+              <div class="analyzer__summary-row">
+                <span class="analyzer__summary-label">Annual Debt Service</span>
+                <span class="analyzer__summary-val" id="sum-ads">—</span>
+              </div>
+              <div class="analyzer__summary-row">
+                <span class="analyzer__summary-label">Annual Cash Flow</span>
+                <span class="analyzer__summary-val" id="sum-cf">—</span>
+              </div>
+              <div class="analyzer__summary-row">
+                <span class="analyzer__summary-label">Total Cash Invested</span>
+                <span class="analyzer__summary-val" id="sum-cash-in">—</span>
+              </div>
+            </div>
+
+            <p class="analyzer__disclaimer">For illustrative purposes only. Consult a licensed financial advisor before making investment decisions.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
     <!-- CONTACT -->
-    <section class="section section--alt" id="contact" aria-labelledby="contact-title">
+    <section class="section" id="contact" aria-labelledby="contact-title">
       <div class="section__inner">
         <div class="reveal">
           <p class="section__eyebrow">Contact</p>
@@ -676,6 +811,116 @@
           });
         });
       });
+    })();
+
+    // Deal Analyzer
+    (function() {
+      const f = {
+        price:   document.getElementById('da-price'),
+        noi:     document.getElementById('da-noi'),
+        down:    document.getElementById('da-down'),
+        rate:    document.getElementById('da-rate'),
+        term:    document.getElementById('da-term'),
+        closing: document.getElementById('da-closing'),
+      };
+
+      const usd = v => new Intl.NumberFormat('en-US', { style:'currency', currency:'USD', maximumFractionDigits:0 }).format(v);
+      const pct = (v, d=2) => v.toFixed(d) + '%';
+      const x   = v => v.toFixed(2) + 'x';
+
+      function monthlyPayment(P, annualRate, years) {
+        if (!annualRate) return P / (years * 12);
+        const r = annualRate / 100 / 12, n = years * 12;
+        return P * (r * Math.pow(1+r, n)) / (Math.pow(1+r, n) - 1);
+      }
+
+      function rateCapRate(v) {
+        const pct = Math.min(Math.max(v / 10 * 100, 0), 100);
+        if (v >= 6) return { label:'Strong', cls:'good', pct };
+        if (v >= 4) return { label:'Typical', cls:'fair', pct };
+        return { label:'Low', cls:'poor', pct: Math.max(pct, 3) };
+      }
+
+      function rateCoc(v) {
+        const pct = Math.min(Math.max(v / 12 * 100, 0), 100);
+        if (v >= 8)  return { label:'Strong',   cls:'good', pct };
+        if (v >= 4)  return { label:'Moderate',  cls:'fair', pct };
+        return { label: v < 0 ? 'Negative' : 'Weak', cls:'poor', pct: Math.max(pct, v < 0 ? 0 : 3) };
+      }
+
+      function rateDscr(v) {
+        const pct = Math.min(Math.max(v / 1.75 * 100, 0), 100);
+        if (v >= 1.25) return { label:'Bankable',  cls:'good', pct };
+        if (v >= 1.0)  return { label:'Marginal',  cls:'fair', pct };
+        return { label:'Below 1x', cls:'poor', pct: Math.max(pct, 3) };
+      }
+
+      function setMetric(id, value, fmt, getRating) {
+        const valEl   = document.getElementById('val-'   + id);
+        const badgeEl = document.getElementById('badge-' + id);
+        const barEl   = document.getElementById('bar-'   + id);
+        if (value === null || !isFinite(value)) {
+          valEl.textContent  = '—';
+          badgeEl.textContent = '—';
+          badgeEl.className  = 'analyzer__metric-badge';
+          barEl.style.width  = '0%';
+          barEl.className    = 'analyzer__metric-bar-fill';
+          return;
+        }
+        const { label, cls, pct } = getRating(value);
+        valEl.textContent   = fmt(value);
+        badgeEl.textContent = label;
+        badgeEl.className   = 'analyzer__metric-badge analyzer__metric-badge--' + cls;
+        barEl.style.width   = pct + '%';
+        barEl.className     = 'analyzer__metric-bar-fill analyzer__metric-bar-fill--' + cls;
+      }
+
+      function calculate() {
+        const price   = parseFloat(f.price.value)   || 0;
+        const noi     = parseFloat(f.noi.value)     || 0;
+        const downPct = parseFloat(f.down.value)    || 25;
+        const rate    = parseFloat(f.rate.value)    || 0;
+        const term    = parseFloat(f.term.value)    || 25;
+        const closPct = parseFloat(f.closing.value) || 0;
+
+        if (!price) {
+          ['caprate','coc','dscr'].forEach(id => setMetric(id, null, null, null));
+          ['sum-loan','sum-ads','sum-cf','sum-cash-in'].forEach(id => {
+            document.getElementById(id).textContent = '—';
+            document.getElementById(id).style.color = '';
+          });
+          return;
+        }
+
+        const downAmt   = price * downPct / 100;
+        const loanAmt   = price - downAmt;
+        const closAmt   = price * closPct / 100;
+        const cashIn    = downAmt + closAmt;
+
+        // Cap Rate
+        setMetric('caprate', price ? noi / price * 100 : null, v => pct(v), rateCapRate);
+
+        // Debt Service
+        let ads = 0;
+        if (loanAmt > 0 && term > 0) ads = monthlyPayment(loanAmt, rate, term) * 12;
+
+        // Cash-on-Cash
+        const cf  = noi - ads;
+        setMetric('coc', (cashIn > 0 && ads > 0) ? cf / cashIn * 100 : null, v => pct(v), rateCoc);
+
+        // DSCR
+        setMetric('dscr', (ads > 0) ? noi / ads : null, v => x(v), rateDscr);
+
+        // Summary
+        document.getElementById('sum-loan').textContent    = usd(loanAmt);
+        document.getElementById('sum-ads').textContent     = ads > 0 ? usd(ads) : '—';
+        const cfEl = document.getElementById('sum-cf');
+        cfEl.textContent  = (noi > 0 && ads > 0) ? usd(cf) : '—';
+        cfEl.style.color  = (ads > 0 && cf < 0) ? '#d64747' : '';
+        document.getElementById('sum-cash-in').textContent = usd(cashIn);
+      }
+
+      Object.values(f).forEach(el => el && el.addEventListener('input', calculate));
     })();
 
     // Smooth scroll for anchor links
